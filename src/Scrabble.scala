@@ -5,7 +5,7 @@ object Scrabble {
                     , playerLastPlayed: Player
                   )
 
-  def main(args: Array[ String ]): Unit = {
+  def main(args: Array[String]): Unit = {
     println("tuples = " + tuples.toString())
     println("bag = " + bag.toString())
   }
@@ -54,8 +54,6 @@ object Scrabble {
     |  	2	0
 """.stripMargin.lines.toList
 
-//  tilesAsText.head
-
   val x: List[String] =
     tilesAsText(4).tail.map(
       char =>
@@ -70,6 +68,10 @@ object Scrabble {
       case List(letter, count, value) => (letter.head, count.toInt, value.toInt)
     }
 
+  val tuples = tilesAsText.map(lineToTuple)
+
+  val bag = fromTuplesToBag(tuples)
+
   def lineToTuple(line: String): (Char, Int, Int) =
     line.tail.map(
       char =>
@@ -81,11 +83,6 @@ object Scrabble {
       case List(letter, count, value) =>
         (letter.head, count.toInt, value.toInt)
     }
-
-  val tuples = tilesAsText.map(lineToTuple)
-
-  val bag = fromTuplesToBag(tuples)
-
   def fromTuplesToBag(tuples: List[(Char, Int, Int)]) =
     tuples.map(tuple => Tile(tuple._1, tuple._2))
 }
